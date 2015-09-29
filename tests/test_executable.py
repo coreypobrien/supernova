@@ -104,3 +104,11 @@ class TestExecutable(object):
         result = runner.invoke(executable.run_supernova, command)
         assert result.exit_code != 0
         assert "There's an error in your configuration file" in result.output
+
+    def test_missing_configuration_file(self):
+        runner = CliRunner()
+        command = ['-c', 'asdfasdfasdfasdfasdfasdfasdf', 'dfw',
+                   'list']
+        result = runner.invoke(executable.run_supernova, command)
+        assert result.exit_code != 0
+        assert "Couldn't find a valid configuration file" in result.output
